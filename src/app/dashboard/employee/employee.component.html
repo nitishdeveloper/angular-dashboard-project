@@ -1,0 +1,133 @@
+<div class="modal-header">
+  <h5 class="modal-title" id="exampleModalLabel">Employee Form</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss('Cross click')"></button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="employeeForm">
+    <div class="container-fluid">
+      <h4>Basic Details:</h4>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="recipient-name" class="col-form-label">Firstname:</label>
+          <input  [readonly]="isEditable" [ngClass]="{'disable_color':isEditable}" type="text" class="form-control" formControlName="firstname" [value]="employee.value.firstname" 
+          [ngClass]="{ 'is-invalid': submitted && employeeForm.controls['firstname'].errors }" (keypress)="allowAlphabetsOnly($event)">
+          <div *ngIf="submitted && employeeForm.controls['firstname'].errors" class="invalid-feedback">
+            <div *ngIf="employeeForm.controls['firstname'].errors.required">firstname is required</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="recipient-name" class="col-form-label">Lastname:</label>
+          <input  [readonly]="isEditable" [ngClass]="{'disable_color':isEditable}" type="text" class="form-control" formControlName="lastname" [value]="employee.value.lastname"
+          [ngClass]="{ 'is-invalid': submitted && employeeForm.controls['lastname'].errors }" (keypress)="allowAlphabetsOnly($event)">
+          <div *ngIf="submitted && employeeForm.controls['lastname'].errors" class="invalid-feedback">
+            <div *ngIf="employeeForm.controls['lastname'].errors.required">lastname is required</div>
+          </div>
+        </div>
+        </div>
+      <div class="row">
+        <div class="col-md-6">
+          <label for="recipient-name" class="col-form-label">EnailId:</label>
+          <input  [readonly]="isEditable" [ngClass]="{'disable_color':isEditable}" type="text" class="form-control" formControlName="emailId" [value]="employee.value.emailId"
+          [ngClass]="{ 'is-invalid': submitted && employeeForm.controls['emailId'].errors }">
+          <div *ngIf="submitted && employeeForm.controls['emailId'].errors" class="invalid-feedback">
+            <div *ngIf="employeeForm.controls['emailId'].errors.required">emailId is required</div>
+            <div *ngIf="employeeForm.controls['emailId'].errors.pattern">emailId is invalid</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="recipient-name" class="col-form-label">Phone Number:</label>
+          <input  [readonly]="isEditable" [ngClass]="{'disable_color':isEditable}" maxlength="10" type="text" 
+          class="form-control" formControlName="phoneNumber" [value]="employee.value.phoneNumber"
+          [ngClass]="{'is-invalid': submitted && employeeForm.controls['phoneNumber'].errors }" (keypress)="phoneNumberValidateOnKeyPress($event)">
+          <div *ngIf="submitted && employeeForm.controls['phoneNumber'].errors" class="invalid-feedback">
+            <div *ngIf="employeeForm.controls['phoneNumber'].errors.required">phone number is required</div>
+            <div *ngIf="employeeForm.controls['phoneNumber'].errors.pattern || 
+            employeeForm.controls['phoneNumber'].errors.maxlength || employeeForm.controls['phoneNumber'].errors.minlength">Phone number must be at least 10 numbers</div>
+          </div>
+        </div>
+      </div>
+      <ng-container formArrayName="addresses">
+        <ng-container *ngFor="let address of addresses.controls; let index = index">
+          <div [formGroupName]="index" *ngIf="index < 2">
+          <h4 class="address">Address {{index+1}}:</h4>
+          <ng-container *ngIf="!isEditable">
+          <ng-container *ngIf="!isClickedAddress">
+            <i class="fa-sharp fa-solid fa-plus" (click)="addNewAddressOnClick()"
+              style="cursor: pointer;margin-top:-25px;position: absolute;margin-left:415px;"></i>
+          </ng-container>
+          <ng-container *ngIf="isClickedAddress">
+            <i class="fa-sharp fa-solid fa-minus" (click)="removeAddress(index)"
+              style="cursor: pointer;margin-top:-25px;position: absolute;margin-left: 415px;"></i>
+          </ng-container>
+        </ng-container>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="recipient-name" class="col-form-label">Addressline1</label>
+              <input  [readonly]="isEditable" [ngClass]="{'disable_color':isEditable}" type="text" class="form-control" formControlName="addressline1"
+              [ngClass]="{ 'is-invalid': submitted && validateAddress(index).controls['addressline1'].errors }">
+          <div *ngIf="submitted && validateAddress(index).controls['addressline1'].errors" class="invalid-feedback">
+            <div *ngIf="validateAddress(index).controls['addressline1'].errors">addressline1 is required</div>
+          </div>
+            </div>
+            <div class="col-md-6">
+              <label for="recipient-name" class="col-form-label">State:</label>
+              <input  [readonly]="isEditable" [ngClass]="{'disable_color':isEditable}" type="text" class="form-control" formControlName="state"
+              [ngClass]="{ 'is-invalid': submitted && validateAddress(index).controls['state'].errors }">
+          <div *ngIf="submitted && validateAddress(index).controls['state'].errors" class="invalid-feedback">
+            <div *ngIf="validateAddress(index).controls['state'].errors">state is required</div>
+          </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="recipient-name" class="col-form-label">City:</label>
+              <input  [readonly]="isEditable" [ngClass]="{'disable_color':isEditable}" type="text" class="form-control" formControlName="city"
+              [ngClass]="{ 'is-invalid': submitted && validateAddress(index).controls['city'].errors }">
+          <div *ngIf="submitted && validateAddress(index).controls['city'].errors" class="invalid-feedback">
+            <div *ngIf="validateAddress(index).controls['city'].errors">city is required</div>
+          </div>
+            </div>
+            <div class="col-md-6">
+              <label for="recipient-name" class="col-form-label">Pincode:</label>
+              <input  [readonly]="isEditable" [ngClass]="{'disable_color':isEditable}" type="text" class="form-control" formControlName="pincode"
+              [ngClass]="{ 'is-invalid': submitted && validateAddress(index).controls['pincode'].errors }">
+          <div *ngIf="submitted && validateAddress(index).controls['pincode'].errors" class="invalid-feedback">
+            <div *ngIf="validateAddress(index).controls['pincode'].errors">pincode is required</div>
+          </div>
+            </div>
+          </div>
+    </div>
+    </ng-container>
+    </ng-container>
+    <span>
+      <h4 class="companyInfo">Department: </h4>
+    </span>
+    <div class="row">
+      <div class="col-md-6">
+        <label for="recipient-name" class="col-form-label">Department Name:</label>
+        <input  [readonly]="isEditable" [ngClass]="{'disable_color':isEditable}" type="text" class="form-control" formControlName="departmentName" [value]="employee.value.departmentName"
+          [ngClass]="{ 'is-invalid': submitted && employeeForm.controls['departmentName'].errors }">
+          <div *ngIf="submitted && employeeForm.controls['departmentName'].errors" class="invalid-feedback">
+            <div *ngIf="employeeForm.controls['departmentName'].errors.required">departmentName is required</div>
+          </div>
+      </div>
+      <div class="col-md-6">
+        <label for="recipient-name" class="col-form-label">Designation:</label>
+        <input  [readonly]="isEditable" [ngClass]="{'disable_color':isEditable}" type="text" class="form-control" formControlName="designation" [value]="employee.value.designation"
+        [ngClass]="{ 'is-invalid': submitted && employeeForm.controls['designation'].errors }">
+          <div *ngIf="submitted && employeeForm.controls['designation'].errors" class="invalid-feedback">
+            <div *ngIf="employeeForm.controls['designation'].errors.required">designation is required</div>
+          </div>
+      </div>
+    </div>
+</div>
+</form>
+</div>
+<ng-container *ngIf="!isEditable">
+<div class="modal-footer" [ngClass]="{'hideButtonOnViewMode':isEditable}">
+  <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('close')">Close</button>
+  <button type="button" class="btn btn-primary" (click)="saveAndUpdateOnClick()">
+    {{action['actionType'] == 'edit' ? 'Update' : 'Save' }}
+  </button>
+</div>
+</ng-container>

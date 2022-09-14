@@ -1,0 +1,44 @@
+{
+  "employeeSchema": [
+    {
+      "id": 1,
+      "firstname": "Nitish",
+      "lastname": "Prajapati",
+      "emailId": "nitishprajapati199@gmail.com",
+      "phoneNumber": "9540095832",
+      "department": {
+        "departmentName": "IT",
+        "designation": "Senior Software Engineer"
+      },
+      "addresses": [
+        {
+          "addressline1": "Chauhan Colony",
+          "state": "Haryana",
+          "city": "Faridabad",
+          "pincode": "121003"
+        }
+      ]
+    },
+    {
+      "firstname": "Nitish",
+      "lastname": "Kumar",
+      "emailId": "nitish@gmail.com",
+      "phoneNumber": "909900999",
+      "departmentName": "Tech",
+      "designation": "SDE1",
+      "addresses": [
+        {
+          "addressline1": "Address 1",
+          "state": "Haryana",
+          "city": "Delhi",
+          "pincode": "121003"
+        }
+      ],
+      "department": {
+        "departmentName": "Tech",
+        "designation": "SDE1"
+      },
+      "id": 2
+    }
+  ]
+}

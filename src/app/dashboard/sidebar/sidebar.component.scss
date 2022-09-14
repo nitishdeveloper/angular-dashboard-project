@@ -1,0 +1,48 @@
+.side-navbar-content {
+    color: white;
+    width: 150px;
+
+    .nav-list {
+        list-style: none;
+        padding: 0%;
+        height: 100%;
+        .nav-list-item {
+            display: flex;
+            align-items: center;
+            height: 50px;
+            margin-left: -10px;
+        }
+    }
+}
+
+.nav-list-item:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 2px;
+}
+
+
+.nav-list-icon {
+    vertical-align: auto;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    width: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
+    cursor: pointer;
+}
+
+.nav-list-name {
+    width: 150px;
+    text-transform: capitalize;
+    font-weight: bold;
+
+    a {
+        text-decoration: none;
+        color: white;
+    }
+}
+
+.app-side-nav-open {
+    width: 150px;
+}

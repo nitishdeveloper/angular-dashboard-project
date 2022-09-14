@@ -1,0 +1,40 @@
+<h1 class="text-center"><u>Employee List</u></h1>
+<button class="btn btn-small btn-outline-primary" (click)="createEmployeeForm()" style="margin-bottom: 5px;">Add Employee</button>
+
+<table class="table table-bordered border-dark table-hover ">
+  <thead class="text-center table-secondary table-bordered border-dark">
+    <tr>
+      <th scope="col">EmployeeId</th>
+      <th scope="col">Name</th>
+      <th scope="col">EmailId</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Department</th>
+      <th scope="col">Designation</th>
+      <th scope="col">AddressLine1</th>
+      <th scope="col">State</th>
+      <th scope="col">City</th>
+      <th scope="col">Pincode</th>
+      <th scope="col">View</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
+    </tr>
+  </thead>
+  <tbody class="text-center">
+    <tr *ngFor="let employee of employees">
+      <th>{{employee.id}}</th>
+      <td>{{employee.firstname}} {{employee.lastname}} </td>
+      <td>{{employee.emailId}}</td>
+      <td>{{employee.phoneNumber}}</td>
+      <td>{{employee.department.departmentName}}</td>
+      <td>{{employee.department.designation}}</td>
+      <td>{{employee.addresses[0].addressline1}}</td>
+      <td>{{employee.addresses[0].state}}</td>
+      <td>{{employee.addresses[0].city}}</td>
+      <td>{{employee.addresses[0].pincode}}</td>
+      <td><i class="fa-solid fa-eye" (click)="viewEmployeeForm(employee.id)" style="cursor: pointer;"></i></td>
+      <td><i class="fa-sharp fa-solid fa-pen-to-square" (click)="updateEmployeeForm(employee.id)" style="cursor: pointer;"></i></td>
+      <td><i class="fa-solid fa-trash" (click)="deleteEmployeeOnClick(employee.id)"  style="cursor: pointer;"></i></td>
+    </tr>
+  </tbody>
+</table>
+

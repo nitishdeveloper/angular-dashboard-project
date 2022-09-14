@@ -1,0 +1,15 @@
+@import '~bootstrap/scss/bootstrap';
+
+.main-content-display {
+    position: absolute;
+    left:165px;
+    top: 80px;
+    transition: left 300ms ease-in,width 300ms ease-in;
+}
+
+.main-content-display-shrink {
+    position: absolute;
+    transition: left 300ms ease-in,width 300ms ease-in;
+    left:165px;
+    top: 80px;
+}
