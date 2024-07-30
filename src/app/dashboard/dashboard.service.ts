@@ -33,7 +33,5 @@ constructor(private httpClient : HttpClient) { }
   patchEmployeeById(employeePayload : any) {
     return this.httpClient.patch(environment.BASE_URL.JSON_SERVER.concat(Constants.API_ENDPOINT),employeePayload)
   }
-
-
-
+  
 }
